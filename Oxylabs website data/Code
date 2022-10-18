@@ -1,0 +1,24 @@
+import pandas as pd
+from bs4 import BeautifulSoup
+from selenium import webdriver
+
+driver = webdriver.Chrome(executable_path='X:/Data Science/Projects/chromedriver')
+driver.get("https://oxylabs.io/blog")
+results = []
+category_results = []
+date_results = []
+content = driver.page_source
+soup = BeautifulSoup(content,"html.parser")
+driver.quit()
+
+for a in soup.findAll(attrs="css-g65o95 e1kk1ckf2"):
+    name = a.find('h5')
+    print(name)
+    if name not in results:
+        results.append(name.text)
+
+for b in soup.findAll(attrs="css-n0tro5 esl9i4u2"):
+    category = b.find('p')
+    print(category)
+    if category not in category_results:
+        category_results.append(category.text)
